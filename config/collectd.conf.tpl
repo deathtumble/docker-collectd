@@ -17,6 +17,10 @@ LoadPlugin memory
 LoadPlugin tcpconns
 LoadPlugin uptime
 
+<LoadPlugin "python">
+  Globals true
+</LoadPlugin>
+
 <Plugin df>
         FSType "rootfs"
         IgnoreSelected true
@@ -28,3 +32,11 @@ LoadPlugin uptime
 <Include "/etc/collectd/collectd.conf.d">
     Filter "*.conf"
 </Include>
+
+Import "carbon_writer"
+<Module carbon_writer>
+  LineReceiverHost "localhost"
+  LineReceiverPort 2003
+  DeriveCounters true
+  TypesDB "/usr/share/collectd/types.db"
+</Module>
